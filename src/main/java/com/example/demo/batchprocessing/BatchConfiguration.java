@@ -20,8 +20,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
+import java.beans.PropertyEditor;
+import java.util.HashMap;
+import java.util.Map;
 
-// tag::setup[]
+
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
@@ -31,38 +34,25 @@ public class BatchConfiguration {
 
 	@Autowired
 	public StepBuilderFactory stepBuilderFactory;
-	// end::setup[]
-
-	// tag::readerwriterprocessor[]
-//	@Bean
-//	public FlatFileItemReader<Person> reader() {
-//		return new FlatFileItemReaderBuilder<Person>()
-//			.name("personItemReader")
-//			.resource(new ClassPathResource("sample-data.csv"))
-//			.delimited()
-//			.names(new String[]{"firstName", "lastName"})
-//			.fieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
-//				setTargetType(Person.class);
-//			}})
-//			.build();
-//	}
 
 	@Bean
 	public FlatFileItemReader<CustomerTrx> reader() {
 		FlatFileItemReader<CustomerTrx> reader = new FlatFileItemReader<>();
 		reader.setResource(new ClassPathResource("dataSource.txt"));
-		reader.setLineMapper(new DefaultLineMapper<CustomerTrx>() {{
+		Map<Class<String>, PropertyEditor> customEditors = new HashMap<>();
+		reader.setLineMapper(new DefaultLineMapper<>() {{
 			setLineTokenizer(new DelimitedLineTokenizer() {{
-				setNames(new String[]{"accNumber", "trxAmount", "description", "trxDate", "trxTime", "custId"});
+				setNames("accNumber", "trxAmount", "description", "trxDate", "trxTime", "custId");
 				setDelimiter("|");
 			}});
-			setFieldSetMapper(new BeanWrapperFieldSetMapper<CustomerTrx>() {{
+			setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
 				setTargetType(CustomerTrx.class);
 			}});
 		}});
 		reader.setLinesToSkip(1);
 		return reader;
 	}
+
 	@Bean
 	public CustItemProcessor processor() {
 		return new CustItemProcessor();
@@ -76,9 +66,7 @@ public class BatchConfiguration {
 			.dataSource(dataSource)
 			.build();
 	}
-	// end::readerwriterprocessor[]
 
-	// tag::jobstep[]
 	@Bean
 	public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
 		return jobBuilderFactory.get("importUserJob")
@@ -98,5 +86,4 @@ public class BatchConfiguration {
 			.writer(writer)
 			.build();
 	}
-	// end::jobstep[]
 }

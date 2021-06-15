@@ -27,7 +27,7 @@ public class CustomerController {
     {
         List<CustomerTrx> list = service.getAllCustRecord(pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<CustomerTrx>>(list, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping(value="/custId")
@@ -39,18 +39,18 @@ public class CustomerController {
     {
         List<CustomerTrx> list = service.getAllCustByCustId(custId, pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<CustomerTrx>>(list, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping(value="/accNo")
     public ResponseEntity<List<CustomerTrx>> byAccNo(
-            @RequestParam String accNo,
+            @RequestParam String accNumber,
             @RequestParam(defaultValue = "0") Integer pageNo,
             @RequestParam(defaultValue = "10") Integer pageSize,
             @RequestParam(defaultValue = "id") String sortBy)
     {
-        List<CustomerTrx> list = service.getAllCustByAccNo(accNo, pageNo, pageSize, sortBy);
+        List<CustomerTrx> list = service.getAllCustByAccNo(accNumber, pageNo, pageSize, sortBy);
 
-        return new ResponseEntity<List<CustomerTrx>>(list, new HttpHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 }

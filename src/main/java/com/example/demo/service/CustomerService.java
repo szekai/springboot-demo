@@ -24,7 +24,7 @@ public class CustomerService {
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
-            return new ArrayList<CustomerTrx>();
+            return new ArrayList<>();
         }
     }
 
@@ -37,7 +37,7 @@ public class CustomerService {
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
-            return new ArrayList<CustomerTrx>();
+            return new ArrayList<>();
         }
     }
 
@@ -50,7 +50,7 @@ public class CustomerService {
         if(pagedResult.hasContent()) {
             return pagedResult.getContent();
         } else {
-            return new ArrayList<CustomerTrx>();
+            return new ArrayList<>();
         }
     }
 }
