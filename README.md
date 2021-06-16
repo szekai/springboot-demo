@@ -3,7 +3,7 @@
 This is a spring boot application to demonstrate how to import the data from file via the spring batch and stored into DB. Able to be query via Restful API. The results are paginated.
 
 The flow for the process
-![img.png](img.png)
+![img_2.png](img_2.png)
 
 The standard component in spring batch
 ![img_3.png](img_3.png)
