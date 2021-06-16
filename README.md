@@ -9,10 +9,10 @@ The standard component in spring batch
 ![img_3.png](img_3.png)
 
 Basic class diagram for spring batch
-![img_5.png](img_5.png)
+![img_6.png](img_6.png)
 
 Class diagram for rest component
-![img_6.png](img_6.png)
+![img_5.png](img_5.png)
 
 <b>Restful API:</b>
 
