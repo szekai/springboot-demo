@@ -1,8 +1,11 @@
 "# springboot-demo" 
 
-This is a spring boot application to demonstrate how to import the data from file via the spring batch and stored into DB. Able to be query via Restful API. The results is paginated.
+This is a spring boot application to demonstrate how to import the data from file via the spring batch and stored into DB. Able to be query via Restful API. The results are paginated.
 
-The standard component in spring batch (activity diagram)
+The flow for the process
+![img.png](img.png)
+
+The standard component in spring batch
 ![img_3.png](img_3.png)
 
 Basic class diagram for spring batch
@@ -47,3 +50,14 @@ http://localhost:8080/customers/custId{?custId, page,size,sort}
 
 3. Search by account number<br>
 http://localhost:8080/customers/accNo{?accNumber, page,size,sort}
+
+<b>Additional limitation on this design</b><br>
+If the spring batch process was running on a monolith system with intense usage of database to read and write data. It might cause the performance issues and deadlock if the same table was access by spring batch and application at the same time.
+
+<b>Suggest solution:</b><br>
+Microservice architecture with independence database bundle with the microservices could reduce the burden of the database
+
+Implement CQRS/ES design pattern could help to improve the scalability and performance of the application. The downside is the complexity of the design pattern, and might not suitable for every use case.
+
+![img_1.png](img_1.png)
+
